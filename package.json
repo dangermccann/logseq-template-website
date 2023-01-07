@@ -3,8 +3,6 @@
   "version": "0.0.1",
   "description": "TBD",
   "scripts": {
-    "dev": "parcel server.js",
-    "build": "parcel build server.js ./views/pages/index.ejs"
   },
   "devDependencies": {
 
@@ -13,6 +11,9 @@
   "license": "MIT",
   "dependencies": {
     "ejs": "^3.1.8",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "aws-sdk": "^2.1267.0",
+    "cors": "^2.8.5",
+    "express-winston": "^4.2.0"
   }
 }
