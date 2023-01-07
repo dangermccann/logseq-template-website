@@ -1,0 +1,8 @@
+<p class="mb-0">
+  <% 
+    line = formatLinks(line) 
+    line = formatMarkdown(line) 
+    line = formatTODOs(line) 
+  %>
+  <%- line %>
+</p>

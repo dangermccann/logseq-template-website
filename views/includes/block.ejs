@@ -1,0 +1,58 @@
+<span class="d-flex flex-row mb-1">
+  <% for(var i = 0; i < block.level; i++) { %> 
+      <div class="m-2"></div>
+  <% } %>  
+
+  <ul class="circle mb-0"><li></li></ul>
+
+  <div>
+    <% 
+      var lines = block.content.split('\n'); 
+      
+      const propRegEx = /[A-Za-z0-9]+\:\:/
+
+      // Extract properties
+      let properties = []
+      for(var i = lines.length - 1; i >= 0; i--) {
+          if(lines[i].match(propRegEx)) {
+              properties.push(lines[i])
+              lines.splice(i, 1)
+          }
+      }
+
+      // render first line 
+    %>
+      <%- include('../includes/line', {line: lines[0]}); %>
+    <% lines.splice(0, 1) %>
+    
+    <% 
+      // render properties
+      if(properties.length > 0) { 
+    %>
+        <div class="block-properties">
+          <% 
+            properties.forEach(prop => {
+              var parts = prop.split("::")
+          %>
+              <p class="mb-0">
+                <span class="property-name"><%= parts[0]%></span><span class="separator">:</span>
+                <%= parts.length > 0 ? formatLinks(parts[1]) : '' %>
+              </p>
+          <% }) %>
+        </div>
+    <% } %>
+
+    <%
+      lines.forEach(line => {
+    %>
+    <%- include('../includes/line', {line: line}); %>
+    <%
+      })
+    %>
+
+  </div>
+</span>
+
+<% block.children.forEach(child => { %>
+  <%- include('../includes/block', {block: child}); %>
+<% }) %>
