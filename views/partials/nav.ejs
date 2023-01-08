@@ -1,5 +1,5 @@
 <h2 class="centered-element">
-  <img src="/static/images/logo-circle.png" height="80" /> 
+  <img src="/static/images/logo-circle.png" height="80" alt="Logseq Template Gallery Logo" /> 
   <a href="/" class="align-middle">Logseq Template Gallery</a>
 </h2>
 
@@ -20,12 +20,19 @@
           <a class="nav-link" href="/all">All Templates</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
+          <a href="/share">
+            <button class="btn btn-outline-dark ms-2 me-2" type="button">
+              <span class="inline-icon share-icon"></span>
+              Share a Template
+            </button>
+          </a>
         </li>
       </ul>
       <form class="d-flex" role="search" method="GET" action="/search">
         <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search" value="<%= (typeof query == 'undefined' ? '' : query) %>">
-        <button class="btn btn-outline-dark" type="submit">Search</button>
+        <button class="btn btn-outline-dark" type="submit">
+          <span class="inline-icon search-icon"></span>
+        </button>
       </form>
     </div>
   </div>

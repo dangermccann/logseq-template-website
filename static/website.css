@@ -180,7 +180,40 @@ h4 a:hover {
     background-color: #2A3D45;
 }
 
+.inline-icon {
+    height: 20px;
+    width: 20px;
+    background-size: 20px 20px;
+    background-color: #DDC9B4;
+    display: inline-block;
+    vertical-align: -0.3em;
+    margin-right: 0.1em;
+    mask-size: cover;
+    -webkit-mask-size: cover;
+}
 
+.share-icon {
+    -webkit-mask-image: url("/static/images/cloud-upload.svg");
+    mask-image: url("/static/images/cloud-upload.svg");
+}
+
+.download-icon {
+    -webkit-mask-image: url("/static/images/download.svg");
+    mask-image: url("/static/images/download.svg");
+}
+
+.search-icon {
+    -webkit-mask-image: url("/static/images/search.svg");
+    mask-image: url("/static/images/search.svg");
+}
+
+.btn-outline-dark .inline-icon {
+    background-color: #2A3D45;
+}
+
+.btn-outline-dark:hover .inline-icon {
+    background-color: #E6E1DC;
+}
 
 .template-content {
     height: 12rem; 

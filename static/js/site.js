@@ -24,10 +24,10 @@ function downloadButtonClicked(el) {
     copyTextToClipboard(text)
 
     el.classList.add('disabled')
-    el.innerText = "Copied to Clipboard!"
+    el.innerHTML = "Copied to Clipboard!"
     setTimeout(() => {
         el.classList.remove('disabled')
-        el.innerText = "Download"
+        el.innerHTML = '<span class="inline-icon download-icon"></span> Download'
     }, 5000)
 }
 

@@ -158,6 +158,12 @@ app.get('/t/:user/:template', async function(req, res) {
     });
 });
 
+app.get('/share', async function(req, res) {
+    res.render('pages/share', {
+        title: "Share a Template | Logseq Template Gallery"
+    });
+});
+
 app.get('/about', async function(req, res) {
     res.render('pages/about', {
         title: "About Logseq Template Gallery"
