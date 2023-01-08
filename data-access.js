@@ -74,6 +74,25 @@ class DataAccess {
         return this.query(params)
     }
 
+    async getAllTemplates(user) {
+        const params = {
+            TableName: this.table,
+            AttributesToGet: [ 'User', 'Template' ]
+        };
+
+        return this.scan(params);
+    }
+
+    async searchTemplates(q) {
+        const params = {
+            TableName: this.table,
+            FilterExpression: `contains(SearchTerm, :filter)`,
+            ExpressionAttributeValues: { ":filter" : q.toLowerCase() }
+        };
+
+        return this.scan(params);
+    }
+
     async query(params) {
         return new Promise((resolve, reject) => { 
             this.dynamoDbClient.query(params, (error, data) => {
@@ -87,6 +106,26 @@ class DataAccess {
         })
     }
 
+    async scan(params) {
+        return new Promise((resolve, reject) => { 
+            this.dynamoDbClient.scan(params, async (error, data) => {
+                if (error) {
+                    console.log("DynamoDB scan error", error);
+                    reject(error)
+                } else {
+                    if(data.LastEvaluatedKey) {
+                        params.ExclusiveStartKey = data.LastEvaluatedKey
+                        let more = await this.scan(params)
+                        data.Items.concat(more)
+                        resolve(data.Items)
+                    }
+                    else {
+                        resolve(data.Items)
+                    }
+                }
+            });
+        })
+    }
 }
 
 module.exports = new DataAccess()

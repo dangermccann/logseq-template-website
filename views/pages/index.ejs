@@ -1,54 +1,42 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Logseq Templates Gallery Plugin</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link href="/static/website.css" rel="stylesheet">
+  <%- include('../partials/head'); %>
 </head>
 <body class="dark-theme">
     <div class="container">
-      <h1>Logseq Templates Gallery</h1>
+      <%- include('../partials/nav'); %>
 
       <div class="row cards" id="cards">
-        <% for(var i = 0; i < templates.length; i++) { %>
-          <div class="col-sm-6 col-md-4">
-            <div class="card mb-4">  
-              <span class="template-content card-img-top">
-                <% 
-                  var parsed = JSON.parse(templates[i].Content);
-                  parsed.blocks.forEach(block => {
-                %>
-                <%- include('../includes/block', {block: block}); %>
-                <% }) %>
-              </span>
-              <div class="card-body">
-                <h5 class="card-title"><%= templates[i].Template %></h5>
-                <p class="template-description card-text"><%= templates[i].Description %></p>
-                <p class="template-user card-text">Shared by <%= templates[i].User %></p>
-              </div>
-              <div class="card-body">
-                <button id="download-button" type="button" class="btn btn-outline-dark mb-2">
-                  <span class="inline-icon download-icon"></span>
-                  Install
-                </button>
-                <button id="heart-button" type="button" class="btn btn-outline-dark mb-2">
-                  <span class="inline-icon heart-icon"></span>
-                  Love
-                </button>
-                <button id="delete-button" type="button" class="btn btn-outline-dark d-none mb-2">
-                  <span class="inline-icon delete-icon"></span>
-                  Delete
-                </button>
+        <% if(templates == null || templates.length == 0) { %>
+          <div>No Templates Found</div>
+        <% } else { %>
+          <% for(var i = 0; i < templates.length; i++) { %>
+            <div class="col-sm-6 col-md-4">
+              <div class="card mb-4">  
+                <span class="template-content card-img-top">
+                  <% 
+                    var t = templates[i];
+                    var parsed;
+                    try {
+                      parsed = JSON.parse(t.Content);
+                    }
+                    catch(e) {
+                      parsed = { blocks: [{ level: 0, content: 'invalid json', children: [] }] };
+                    }
+                    parsed.blocks.forEach(block => {
+                  %>
+                  <%- include('../partials/block', {block: block}); %>
+                  <% }) %>
+                </span>
+                <%- include('../partials/card', {t: t}); %>
               </div>
             </div>
-          </div>
+          <% } %>
         <% } %>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <%- include('../partials/footer'); %>
+    
 </body>
 </html>

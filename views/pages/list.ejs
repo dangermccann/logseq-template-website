@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="dark-theme">
+  <div class="container">
+    <%- include('../partials/nav'); %>
+
+    <ul class="all-list" id="cards">
+      <% if(templates == null || templates.length == 0) { %>
+        <div>No Templates Found</div>
+      <% } else { %>
+        <% for(var i = 0; i < templates.length; i++) { %>
+          <% var t = templates[i] %>
+          <li>
+            <span><a href="/t/<%= t.User %>/<%= t.Template %>"><%= t.Template %></a></span>
+            <span class="template-user">Shared by 
+              <a href="/u/<%= t.User %>"><%= t.User %></a>
+            </span>
+          </li>
+        <% } %>
+      <% } %>
+    </ul>
+  </div>
+  <%- include('../partials/footer'); %>
+    
+</body>
+</html>

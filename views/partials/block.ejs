@@ -22,7 +22,7 @@
 
       // render first line 
     %>
-      <%- include('../includes/line', {line: lines[0]}); %>
+      <%- include('../partials/line', {line: lines[0]}); %>
     <% lines.splice(0, 1) %>
     
     <% 
@@ -45,7 +45,7 @@
     <%
       lines.forEach(line => {
     %>
-    <%- include('../includes/line', {line: line}); %>
+    <%- include('../partials/line', {line: line}); %>
     <%
       })
     %>
@@ -54,5 +54,5 @@
 </span>
 
 <% block.children.forEach(child => { %>
-  <%- include('../includes/block', {block: child}); %>
+  <%- include('../partials/block', {block: child}); %>
 <% }) %>

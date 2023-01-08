@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="dark-theme">
+    <div class="container">
+      <%- include('../partials/nav'); %>
+
+      <div class="row cards" id="cards">
+        <% if(template == null) { %>
+          <div>Template Not Found</div>
+        <% } else { %>
+          <div>
+            <div class="card mb-4">  
+              <span class="no-height template-content card-img-top">
+                <% 
+                  var t = template;
+                  var parsed;
+                  try {
+                    parsed = JSON.parse(t.Content);
+                  }
+                  catch(e) {
+                    parsed = { blocks: [{ level: 0, content: 'invalid json', children: [] }] };
+                  }
+                  parsed.blocks.forEach(block => {
+                %>
+                <%- include('../partials/block', {block: block}); %>
+                <% }) %>
+              </span>
+              <%- include('../partials/card', {t: t}); %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <%- include('../partials/footer'); %>
+    
+</body>
+</html>

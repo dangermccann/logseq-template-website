@@ -5,7 +5,6 @@ var app = express();
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
-// use res.render to load up an ejs view file
 
 app.locals.formatLinks = function(line) {
     line = line.replaceAll(/\#([^\s]+)/g, '<span class="tag">#$1</span>')
@@ -33,10 +32,10 @@ app.locals.formatTODOs = function(line) {
     return line
 }
 
-// index page
-app.get('/', async function(req, res) {
+app.get(['/', '/popular'], async function(req, res) {
     let err = null;
     let templates = [];
+    let title = 'Popular Templates | Logseq Template Gallery'
     try {
         templates = await api.getMostPopularTemplates()
     }
@@ -45,9 +44,119 @@ app.get('/', async function(req, res) {
     }
     res.render('pages/index', {
         templates: templates,
+        mode: 'popular',
+        title: title,
         error: err
     });
 });
+
+app.get('/recent', async function(req, res) {
+    let err = null;
+    let templates = [];
+    let title = 'Recent Templates | Logseq Template Gallery'
+    try {
+        templates = await api.getMostRecentTemplates()
+    }
+    catch(e) {
+        err = e
+    }
+    res.render('pages/index', {
+        templates: templates,
+        mode: 'recent',
+        title: title,
+        error: err
+    });
+});
+
+app.get('/all', async function(req, res) {
+    let err = null;
+    let templates = [];
+    let title = 'All Templates | Logseq Template Gallery'
+    try {
+        templates = await api.getAllTemplates()
+    }
+    catch(e) {
+        err = e
+    }
+    res.render('pages/list', {
+        templates: templates,
+        mode: 'all',
+        title: title,
+        error: err
+    });
+});
+
+app.get('/search', async function(req, res) {
+    let err = null;
+    let templates = [];
+    let title = `${req.query.q} | Logseq Template Gallery`
+    try {
+        templates = await api.searchTemplates(req.query.q)
+    }
+    catch(e) {
+        err = e
+    }
+    res.render('pages/index', {
+        templates: templates,
+        mode: 'search',
+        query: req.query.q,
+        title: title,
+        error: err
+    });
+});
+
+app.get('/u/:user', async function(req, res) {
+    let err = null;
+    let templates = [];
+    let status = 200;
+    let title = `Templates shared by ${req.params.user} | Logseq Template Gallery`
+    try {
+        templates = await api.getUserTemplates(req.params.user);
+    }
+    catch(e) {
+        err = e
+    }
+
+    if(templates.length === 0)
+        status = 404
+
+    res.status(status).render('pages/index', {
+        templates: templates,
+        mode: 'user',
+        user: req.params.user,
+        title: title,
+        error: err
+    });
+})
+
+app.get('/t/:user/:template', async function(req, res) {
+    let err = null;
+    let template = null;
+    let status = 404;
+    let title = `${req.params.template} shared by ${req.params.user} | Logseq Template Gallery`
+    let description = null;
+    try {
+        let templates = await api.getUserTemplates(req.params.user);
+        templates.forEach(t => {
+            if(t.Template === req.params.template) {
+                template = t;
+                description = t.Description;
+                status = 200;
+                return;
+            }
+        });
+    }
+    catch(e) {
+        err = e
+    }
+
+    res.status(status).render('pages/template', {
+        template: template,
+        title: title,
+        description: description,
+        error: err
+    });
+})
 
 app.use("/static", express.static('./static/'));
 

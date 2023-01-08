@@ -65,6 +65,10 @@ html, body {
     color: #fff;
 }
 
+.navbar {
+    background-color: #ddc9b4 !important;
+}
+
 .cards {
     min-height: 500px;
 }
@@ -76,6 +80,10 @@ html, body {
 .card-body {
     background-color: #DDC9B4;
     color: #7A6C5D;
+}
+
+.card-body a {
+    color: #7A6C5D !important; 
 }
 
 .btn-outline-dark {
@@ -96,10 +104,15 @@ html, body {
     background-color: #E6E1DC;
 }
 
- h2 {
+h2 {
     color: #E6E1DC !important;
     text-shadow: 2px 2px black;
     font-size: 2.4rem;
+}
+
+h2 a {
+    color: #E6E1DC !important; 
+    text-decoration: none;
 }
 
 h4 {
@@ -164,6 +177,10 @@ h4 a:hover {
     padding: 10px;
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.no-height {
+    height: auto !important;
 }
 
 .overlay .template-content {
@@ -243,4 +260,8 @@ h4 a:hover {
     color: var(--ls-secondary-text-color);
     font-weight: 500;
     white-space: nowrap;
+}
+
+.all-list a {
+    color: #E6E1DC;
 }

@@ -1,0 +1,21 @@
+<div class="card-body">
+  <h5 class="card-title"><a href="/t/<%= t.User %>/<%= t.Template %>"><%= t.Template %></a></h5>
+  <p class="template-description card-text"><%= t.Description %></p>
+  <p class="template-user card-text">Shared by 
+    <a href="/u/<%= t.User %>"><%= t.User %></a>
+  </p>
+</div>
+<div class="card-body">
+  <button id="download-button" type="button" class="btn btn-outline-dark mb-2">
+    <span class="inline-icon download-icon"></span>
+    Install
+  </button>
+  <button id="heart-button" type="button" class="btn btn-outline-dark mb-2">
+    <span class="inline-icon heart-icon"></span>
+    Love
+  </button>
+  <button id="delete-button" type="button" class="btn btn-outline-dark d-none mb-2">
+    <span class="inline-icon delete-icon"></span>
+    Delete
+  </button>
+</div>
