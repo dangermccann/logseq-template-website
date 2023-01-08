@@ -6,16 +6,8 @@
   </p>
 </div>
 <div class="card-body">
-  <button id="download-button" type="button" class="btn btn-outline-dark mb-2">
+  <button type="button" class="btn btn-outline-dark mb-2" onclick="downloadButtonClicked(this)" data-content="<%= t.Content %>">
     <span class="inline-icon download-icon"></span>
-    Install
-  </button>
-  <button id="heart-button" type="button" class="btn btn-outline-dark mb-2">
-    <span class="inline-icon heart-icon"></span>
-    Love
-  </button>
-  <button id="delete-button" type="button" class="btn btn-outline-dark d-none mb-2">
-    <span class="inline-icon delete-icon"></span>
-    Delete
+    Download
   </button>
 </div>

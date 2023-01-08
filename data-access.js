@@ -84,6 +84,9 @@ class DataAccess {
     }
 
     async searchTemplates(q) {
+        if(q == null || q.length == 0)
+            return this.getMostPopularTemplates()
+
         const params = {
             TableName: this.table,
             FilterExpression: `contains(SearchTerm, :filter)`,

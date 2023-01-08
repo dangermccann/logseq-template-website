@@ -65,8 +65,20 @@ html, body {
     color: #fff;
 }
 
+a {
+    color: #fff;
+}
+
 .navbar {
     background-color: #ddc9b4 !important;
+}
+
+.footer {
+    color: #aaa;
+}
+
+.footer a {
+    color: #ccc;
 }
 
 .cards {

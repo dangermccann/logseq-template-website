@@ -156,7 +156,25 @@ app.get('/t/:user/:template', async function(req, res) {
         description: description,
         error: err
     });
-})
+});
+
+app.get('/about', async function(req, res) {
+    res.render('pages/about', {
+        title: "About Logseq Template Gallery"
+    });
+});
+
+app.get('/privacy', async function(req, res) {
+    res.render('pages/privacy', {
+        title: "Privacy Policy | Logseq Template Gallery"
+    });
+});
+
+app.get('/terms', async function(req, res) {
+    res.render('pages/terms', {
+        title: "Terms and Conditions | Logseq Template Gallery"
+    });
+});
 
 app.use("/static", express.static('./static/'));
 
