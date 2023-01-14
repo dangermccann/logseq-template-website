@@ -1,2 +1,2 @@
 cd /home/ec2-user/logseq-template-website
-npm ci
+npm install
