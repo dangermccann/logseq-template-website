@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+files:
+  - source: *.js
+    destination: /home/ec2-user/logseq-template-website
+  - source: *.json
+    destination: /home/ec2-user/logseq-template-website
+  - source: static
+    destination: /home/ec2-user/logseq-template-website/static
+  - source: views
+    destination: /home/ec2-user/logseq-template-website/views
+hooks:
+  BeforeInstall:
+    - location: killall node
+  AfterInstall:
+    - location: cd /home/ec2-user/logseq-template-website && npm ci
+      timeout: 180
+  ApplicationStart:
+    - location: cd /home/ec2-user/logseq-template-website && node server.js
+      timeout: 180
+  ValidateService:
+    - location: curl http://localhost:8080
+      timeout: 180
