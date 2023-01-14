@@ -6,13 +6,13 @@ files:
 file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
-    - location: killall node
+    - location: scripts/before-install.sh
   AfterInstall:
-    - location: cd /home/ec2-user/logseq-template-website && npm ci
+    - location: scripts/after-install.sh
       timeout: 180
   ApplicationStart:
-    - location: cd /home/ec2-user/logseq-template-website && node server.js
+    - location: scripts/application-start.sh
       timeout: 180
   ValidateService:
-    - location: curl http://localhost:8080
+    - location: scripts/validation-service.sh
       timeout: 180
