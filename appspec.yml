@@ -1,14 +1,9 @@
 version: 0.0
 os: linux
 files:
-  - source: *.js
+  - source: /
     destination: /home/ec2-user/logseq-template-website
-  - source: *.json
-    destination: /home/ec2-user/logseq-template-website
-  - source: static
-    destination: /home/ec2-user/logseq-template-website/static
-  - source: views
-    destination: /home/ec2-user/logseq-template-website/views
+file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
     - location: killall node
