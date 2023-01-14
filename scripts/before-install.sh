@@ -1,1 +1,1 @@
-killall node
+killall node || true
