@@ -233,6 +233,12 @@ app.get('/terms', async function(req, res) {
     });
 });
 
+
+app.get('/version', async function(req, res) {
+    var pjson = require('./package.json');
+    res.status(200).send(`Server is alive and running version ${pjson.version}`)
+});
+
 app.use("/static", express.static('./static/'));
 
 app.listen(8080);
