@@ -1,6 +1,6 @@
 {
   "name": "logseq-template-website",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "TBD",
   "scripts": {
     "start": "node server.js"
