@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Trigger AWS CodePipeline
-        uses: zulhfreelancer/aws-codepipeline-action@vX.X.X
+        uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
         if: github.ref == 'refs/heads/your-branch-name'
         with:
           aws-region: "us-east-1"
