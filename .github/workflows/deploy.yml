@@ -1,0 +1,20 @@
+name: Deploy 
+
+on:  #Name of the GitHub event that triggers the workflow
+  push:   #On Push Event We need to take action
+    branches:  #Now we need to specify the branch name
+    - master   
+
+jobs: 
+  deploy_codepipeline:
+    runs-on: ubuntu-latest  
+    steps:
+      - uses: actions/checkout@v2
+      - name: Trigger AWS CodePipeline
+        uses: zulhfreelancer/aws-codepipeline-action@vX.X.X
+        if: github.ref == 'refs/heads/your-branch-name'
+        with:
+          aws-region: "us-east-1"
+          aws-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          pipeline-name: "Logseq-website-pipeline"
