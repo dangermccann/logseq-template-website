@@ -1,9 +1,30 @@
 var express = require('express');
 var api = require('./data-access')
 var app = express();
+var winston = require('winston'), expressWinston = require('express-winston');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+// set up logger 
+const logDir = process.env.LOG_DIR || '.'
+const logger = winston.createLogger({
+    level: 'info',
+    transports: [
+      new winston.transports.Console(),
+      new winston.transports.File({ filename: `${logDir}/website.log` })
+    ]
+});
+
+app.use(expressWinston.errorLogger({
+    transports: [
+      new winston.transports.Console()
+    ],
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.json()
+    )
+}));
 
 
 app.locals.formatLinks = function(line) {
@@ -41,6 +62,11 @@ app.get(['/', '/popular'], async function(req, res) {
     }
     catch(e) {
         err = e
+        logger.log({
+            level: 'error',
+            message: 'Caught in /popular',
+            error: e
+        });
     }
     res.render('pages/index', {
         templates: templates,
@@ -59,6 +85,11 @@ app.get('/recent', async function(req, res) {
     }
     catch(e) {
         err = e
+        logger.log({
+            level: 'error',
+            message: 'Caught in /recent',
+            error: e
+        });
     }
     res.render('pages/index', {
         templates: templates,
@@ -77,6 +108,11 @@ app.get('/all', async function(req, res) {
     }
     catch(e) {
         err = e
+        logger.log({
+            level: 'error',
+            message: 'Caught in /all',
+            error: e
+        });
     }
     res.render('pages/list', {
         templates: templates,
@@ -95,6 +131,11 @@ app.get('/search', async function(req, res) {
     }
     catch(e) {
         err = e
+        logger.log({
+            level: 'error',
+            message: 'Caught in /search',
+            error: e
+        });
     }
     res.render('pages/index', {
         templates: templates,
@@ -115,6 +156,11 @@ app.get('/u/:user', async function(req, res) {
     }
     catch(e) {
         err = e
+        logger.log({
+            level: 'error',
+            message: 'Caught in /u/' + req.params.user,
+            error: e
+        });
     }
 
     if(templates.length === 0)
@@ -148,6 +194,11 @@ app.get('/t/:user/:template', async function(req, res) {
     }
     catch(e) {
         err = e
+        logger.log({
+            level: 'error',
+            message: 'Caught in /t/' + req.params.user + "/" + req.params.template,
+            error: e
+        });
     }
 
     res.status(status).render('pages/template', {
@@ -185,4 +236,7 @@ app.get('/terms', async function(req, res) {
 app.use("/static", express.static('./static/'));
 
 app.listen(8080);
-console.log('Server is listening on port 8080');
+logger.log({
+    level: 'info',
+    message: 'Server is listening on port 8080'
+});
