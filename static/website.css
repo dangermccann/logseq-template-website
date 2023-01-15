@@ -243,10 +243,6 @@ h4 a:hover {
     background-color: var(--ls-block-properties-background-color);
 }
 
-.cards .template-content {
-    cursor: pointer;
-}
-
 .template-content .link {
     color: var(--ls-link-text-color);
     text-decoration: none;
