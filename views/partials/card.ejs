@@ -1,8 +1,8 @@
 <div class="card-body">
-  <h5 class="card-title"><a href="/t/<%= t.User %>/<%= t.Template %>"><%= t.Template %></a></h5>
+  <h5 class="card-title"><a href="/t/<%- encodeURI(t.User) %>/<%- encodeURI(t.Template) %>"><%= t.Template %></a></h5>
   <p class="template-description card-text"><%= t.Description %></p>
   <p class="template-user card-text">Shared by 
-    <a href="/u/<%= t.User %>"><%= t.User %></a>
+    <a href="/u/<%= encodeURI(t.User) %>"><%= t.User %></a>
   </p>
 </div>
 <div class="card-body">
