@@ -230,6 +230,12 @@ h4 a:hover {
 
 .overlay .template-content {
     height: auto !important;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.cards .template-content {
+    overflow-y: auto;
 }
 
  .circle {
